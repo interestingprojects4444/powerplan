@@ -1,19 +1,75 @@
-<h1>ACHTUNG!</h1>
-<h3>Diese website wird grade upgedated</h3>
-<br><br>
+<script src="https://www.chartjs.org/dist/2.8.0/Chart.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<h3>Power Plan</h3>
-<img src="./day.png" </img>
-<br>
-now()	<br>
-2019-07-05 12:02:04	<br>
-settime	dayhour	sum3h	<br>
-2	2019-07-05 14:00:00	89.31	<br>
-1	2019-07-05 13:00:00	89.96	<br>
-3	2019-07-05 15:00:00	92.60	<br>
-4	2019-07-05 16:00:00	98.72	<br>
-5	2019-07-05 17:00:00	106.67	<br>
-7	2019-07-05 19:00:00	107.22	<br>
-8	2019-07-05 20:00:00	108.24	<br>
-6	2019-07-05 18:00:00	109.61	<br>
-9	2019-07-05 21:00:00	109.67	<br>
+<center><canvas id="myChart"></canvas></center>
+<br><h1 id="besttime">Bitte aktivieren sie JavaScript in ihrem Browser um diese Seite sehen zu können!</h1>
+<script>
+
+var time = ["07-05 12:00:00","07-05 13:00:00","07-05 14:00:00","07-05 15:00:00","07-05 16:00:00","07-05 17:00:00","07-05 18:00:00","07-05 19:00:00","07-05 20:00:00","07-05 21:00:00","07-05 22:00:00","07-05 23:00:00"];
+var price = ["33.02","31.05","29.68","29.23","30.40","32.97","35.35","38.35","35.91","32.96","39.37","37.34"]
+var besttime = "+Xh";
+
+document.getElementById('besttime').innerHTML = "Beste zeit: "+besttime
+var ctx = document.getElementById('myChart').getContext('2d');
+
+document.getElementById('myChart').width = screen.width/1.2
+document.getElementById('myChart').height = ((screen.height/1.2)/2)
+
+
+
+window.chartColors = {
+	red: 'rgb(255, 99, 132)',
+	orange: 'rgb(255, 159, 64)',
+	yellow: 'rgb(255, 205, 86)',
+	green: 'rgb(75, 192, 192)',
+	blue: 'rgb(54, 162, 235)',
+	purple: 'rgb(153, 102, 255)',
+	grey: 'rgb(201, 203, 207)'
+};
+
+var myChart = new Chart(ctx,  {
+			type: 'line',
+			data: {
+				labels: time,
+				datasets: [{
+					label: 'Price (€)',
+					backgroundColor: window.chartColors.red,
+					borderColor: window.chartColors.red,
+					data: price,
+					fill: false,
+				}]
+			},
+			options: {
+				responsive: false,
+				title: {
+					display: true,
+					text: 'Power Plan'
+				},
+				tooltips: {
+					mode: 'index',
+					intersect: false,
+				},
+				hover: {
+					mode: 'nearest',
+					intersect: true
+				},
+				scales: {
+					xAxes: [{
+						display: true,
+						scaleLabel: {
+							display: true,
+							labelString: 'Time (h)'
+						}
+					}],
+					yAxes: [{
+						display: true,
+						scaleLabel: {
+							display: true,
+							labelString: 'Price (€)'
+						}
+					}]
+				}
+			}
+		});
+</script>
+
